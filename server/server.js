@@ -44,6 +44,96 @@ app.get('/usdPrice', async (req, res) => {
   }
 });
 
+app.get('/Bitcoin', async (req, res) => {
+  const priceInformation = {};
+  try{
+    const response = await axios.get(crypto.btc.pastMonth)
+    const priceData = response.data.Data.Data;
+
+    priceInformation.historicalPrice = {
+      dates: formatUnixDates(priceData),
+      prices: extractPrices(priceData)
+    };
+
+    priceInformation.weekPrice = {
+      dates: formatUnixDates(priceData.slice(priceData.length - 8, priceData.length)),
+      prices: extractPrices(priceData.slice(priceData.length - 8, priceData.length))
+    }
+
+    const { data:{Data: {Data}} } = await axios.get(crypto.btc.pastHour);
+    priceInformation.currentPrice = Data[Data.length-1].close;
+    priceInformation.hourPrice = {
+      dates: formatUnixDates(Data),
+      prices: extractPrices(Data)
+    };
+
+    res.status(200).send(priceInformation)
+  } catch (e) {
+    console.log('ERROR: ', e);
+    res.status(500);
+  }
+});
+
+app.get('/Ether', async (req, res) => {
+  const priceInformation = {};
+  try{
+    const response = await axios.get(crypto.eth.pastMonth)
+    const priceData = response.data.Data.Data;
+
+    priceInformation.historicalPrice = {
+      dates: formatUnixDates(priceData),
+      prices: extractPrices(priceData)
+    };
+
+    priceInformation.weekPrice = {
+      dates: formatUnixDates(priceData.slice(priceData.length - 8, priceData.length)),
+      prices: extractPrices(priceData.slice(priceData.length - 8, priceData.length))
+    }
+
+    const { data:{Data: {Data}} } = await axios.get(crypto.eth.pastHour);
+    priceInformation.currentPrice = Data[Data.length-1].close;
+    priceInformation.hourPrice = {
+      dates: formatUnixDates(Data),
+      prices: extractPrices(Data)
+    };
+
+    res.status(200).send(priceInformation)
+  } catch (e) {
+    console.log('ERROR: ', e);
+    res.status(500);
+  }
+});
+
+app.get('/Litecoin', async (req, res) => {
+  const priceInformation = {};
+  try{
+    const response = await axios.get(crypto.ltc.pastMonth)
+    const priceData = response.data.Data.Data;
+
+    priceInformation.historicalPrice = {
+      dates: formatUnixDates(priceData),
+      prices: extractPrices(priceData)
+    };
+
+    priceInformation.weekPrice = {
+      dates: formatUnixDates(priceData.slice(priceData.length - 8, priceData.length)),
+      prices: extractPrices(priceData.slice(priceData.length - 8, priceData.length))
+    }
+
+    const { data:{Data: {Data}} } = await axios.get(crypto.ltc.pastHour);
+    priceInformation.currentPrice = Data[Data.length-1].close;
+    priceInformation.hourPrice = {
+      dates: formatUnixDates(Data),
+      prices: extractPrices(Data)
+    };
+
+    res.status(200).send(priceInformation)
+  } catch (e) {
+    console.log('ERROR: ', e);
+    res.status(500);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`CONNECTED AT PORT: ${PORT}`)
 });
