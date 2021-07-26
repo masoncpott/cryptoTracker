@@ -106,3 +106,4 @@ dist
 
 *.DS_Store
 bundle.js
+token.js
