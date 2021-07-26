@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: __dirname + '/client/Index.jsx',
+  entry: __dirname + '/client/index.jsx',
   resolve: {
     extensions: ['.js', '.jsx']
   },
