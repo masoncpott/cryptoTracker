@@ -1,0 +1,19 @@
+{
+  "name": "cryptotracker",
+  "version": "1.0.0",
+  "description": "Matrix-themed cryptocurrency price tracking application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masoncpott/cryptoTracker.git"
+  },
+  "author": "Mason C. Pott",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masoncpott/cryptoTracker/issues"
+  },
+  "homepage": "https://github.com/masoncpott/cryptoTracker#readme"
+}
