@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-
+const { formatDatesArray, formatUnixDates, extractPrices } = require('./helpers.js');
 const { cryptoCompare } = require('../token.js');
 const {
   usdEndpoint,
@@ -22,15 +22,27 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 
 app.get('/usdPrice', async (req, res) => {
+  const priceInformation = {};
   try {
-    const response = await Promise.all([axios.get(usdEndpoint), axios.get(historicalEndpoint)]);
-    console.log('RESPONSE FROM BITCOIN:', response);
-    res.send(200)
+    const [{data:{bpi:{USD: {rate}}}}, {data:{bpi}}] = await Promise.all([axios.get(usdEndpoint), axios.get(historicalEndpoint)]);
+
+    priceInformation.currentPrice = rate;
+    priceInformation.historicalPrice = {
+      dates: formatDatesArray(Object.keys(bpi)),
+      prices: Object.values(bpi)
+    };
+
+    const arrayLength = Object.keys(bpi).length;
+    priceInformation.weekPrice = {
+      dates: formatDatesArray(Object.keys(bpi).slice(arrayLength - 8), arrayLength),
+      prices: Object.values(bpi).slice(arrayLength - 8, arrayLength)
+    };
+
+    res.status(200).send(priceInformation);
   } catch (e) {
-    console.log('ERROR HITTING ENDPOINT:', e);
-    res.send(404)
+    res.send(500)
   }
-})
+});
 
 app.listen(PORT, () => {
   console.log(`CONNECTED AT PORT: ${PORT}`)
