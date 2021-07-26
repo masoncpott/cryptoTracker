@@ -30,48 +30,23 @@ const LitecoinText = styled.div`
   font-weight: ${props => (props.selected === 'Litecoin') ? 700 : 400};
 `;
 
-// class CurrencyPicker extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       selected: 'Bitcoin'
-//     };
-//     this.updateSelected = this.updateSelected.bind(this);
-//   }
-
-//   updateSelected(e) {
-//     e.preventDefault();
-//     this.setState({selected: e.target.innerText})
-//     this.props.updateWithNewCoinData(e.target.innerText)
-//   };
-
-//   render() {
-//     const {selected} = this.state;
-//     return (
-//       <SelectionContainer>
-//         <BitcoinText onClick={this.updateSelected} selected={selected}>Bitcoin</BitcoinText>
-//         <EtherText onClick={this.updateSelected} selected={selected}>Ether</EtherText>
-//         <LitecoinText onClick={this.updateSelected} selected={selected}>Litecoin</LitecoinText>
-//         <div>
-//           Current Price:
-//           <GreenText>{this.props.price}</GreenText>
-//         </div>
-//       </SelectionContainer>
-//     )
-//   }
-// }
-
-function CurrencyPicker () {
+function CurrencyPicker ({price, updateWithNewCoinData}) {
   const [selected, setSelected] = useState('Bitcoin');
+
+  const updateSelected = (e) => {
+    e.preventDefault();
+    setSelected(e.target.innerText)
+    updateWithNewCoinData(e.target.innerText)
+  };
 
   return (
     <SelectionContainer>
-        <BitcoinText /*onClick={this.updateSelected}*/ selected={selected}>Bitcoin</BitcoinText>
-        {/* <EtherText onClick={this.updateSelected} selected={selected}>Ether</EtherText>
-        <LitecoinText onClick={this.updateSelected} selected={selected}>Litecoin</LitecoinText> */}
+        <BitcoinText onClick={updateSelected} selected={selected}>Bitcoin</BitcoinText>
+        <EtherText onClick={updateSelected} selected={selected}>Ether</EtherText>
+        <LitecoinText onClick={updateSelected} selected={selected}>Litecoin</LitecoinText>
         <div>
           Current Price:
-          {/* <GreenText>{this.props.price}</GreenText> */}
+          <GreenText>{price}</GreenText>
         </div>
       </SelectionContainer>
   )

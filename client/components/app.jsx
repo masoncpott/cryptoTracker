@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import Chart from 'chart.js';
 import styled from 'styled-components';
-// import MainChart from './MainChart.jsx';
+import MainChart from './MainChart.jsx';
 import CurrencyPicker from './CurrencyPicker.jsx';
 
 const MainContainer = styled.div`
@@ -21,23 +21,42 @@ const MainTitleText = styled.div`
 function App () {
   const [price, setPrice] = useState(null);
   const [mainChartData, setMainChartData] = useState({})
-  const [weekChartData, setweekChartData] = useState({})
-  const [hourChartData, sethourChartData] = useState({})
+  const [weekChartData, setWeekChartData] = useState({})
+  const [hourChartData, setHourChartData] = useState({})
 
   useEffect(async () => {
     try {
-      const response = await axios.get('/usdPrice');
-      console.log('RESPONSE FROM SERVER:', response);
+      const {data} = await axios.get('/Bitcoin');
+      setPrice(data.currentPrice)
+      setMainChartData(data.historicalPrice)
+      // setWeekChartData(data.weekPrice)
+      // setHourChartData(data.hourPrice)
     } catch (e) {
-      console.log('ERROR: ', e)
+      console.log('ERROR IN USE EFFECT: ', e)
     }
   }, []);
+
+  const updateWithNewCoinData = async (selection) => {
+    try{
+      $('#mainChart').replaceWith('<canvas id="mainChart"></canvas>');
+      // $('#weekChart').replaceWith('<canvas id="weekChart"></canvas>');
+      // $('#hourChart').replaceWith('<canvas id="hourChart"></canvas>');
+
+      const {data} = await axios.get(`${selection}`);
+      setPrice(data.currentPrice)
+      setMainChartData(data.historicalPrice)
+      // setWeekChartData(data.weekPrice)
+      // setHourChartData(data.hourPrice)
+    } catch (e) {
+      console.log('ERROR IN NEW COIN DATA REQUEST', e)
+    }
+  }
 
   return (
     <MainContainer>
       <MainTitleText> Cryptocurrency Price Tracker ($USD)</MainTitleText>
-      <CurrencyPicker />
-      {/* <MainChart /> */}
+      <CurrencyPicker price={price} updateWithNewCoinData={updateWithNewCoinData}/>
+      <MainChart mainChartData={mainChartData}/>
     </MainContainer>
   )
 }
