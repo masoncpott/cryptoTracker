@@ -45,8 +45,6 @@ const MainChart = ({mainChartData}) => {
     <div>
       <TitleStyle>Last 30 Days</TitleStyle>
       <MainChartContainer id={'mainChartContainer'}>
-        {/* {dates && buildChart(dates, prices, 'mainChart', 'Last Month')}
-        <canvas id='mainChart'></canvas> */}
         <Line
           data={state}
           options={chartOptions}

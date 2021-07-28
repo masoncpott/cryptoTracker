@@ -36,8 +36,6 @@ const HourChart = ({hourChartData}) => {
     <div>
       <TitleStyle>Last Hour</TitleStyle>
       <div id={'hourChartContainer'}>
-        {/* {dates && buildChart(dates, prices, 'hourChart', 'Last Hour')}
-        <canvas id='hourChart'></canvas> */}
         <Line
           data={state}
           options={chartOptions}

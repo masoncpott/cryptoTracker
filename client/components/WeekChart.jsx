@@ -37,8 +37,6 @@ const WeekChart = ({weekChartData}) => {
     <div>
       <TitleStyle>Last Week</TitleStyle>
       <div id={'weekChartContainer'}>
-        {/* {dates && buildChart(dates, prices, 'weekChart', 'Last Week')}
-        <canvas id='weekChart'></canvas> */}
         <Line
           data={state}
           options={chartOptions}
