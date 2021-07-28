@@ -40,7 +40,7 @@ function App () {
       const {data} = await axios.get('/Bitcoin');
       setPrice(data.currentPrice)
       setMainChartData(data.historicalPrice)
-      // setWeekChartData(data.weekPrice)
+      setWeekChartData(data.weekPrice)
       // setHourChartData(data.hourPrice)
     } catch (e) {
       console.log('ERROR IN USE EFFECT: ', e)
@@ -49,14 +49,14 @@ function App () {
 
   const updateWithNewCoinData = async (selection) => {
     try{
-      $('#mainChart').replaceWith('<canvas id="mainChart"></canvas>');
+      // $('#mainChart').replaceWith('<canvas id="mainChart"></canvas>');
       // $('#weekChart').replaceWith('<canvas id="weekChart"></canvas>');
       // $('#hourChart').replaceWith('<canvas id="hourChart"></canvas>');
 
       const {data} = await axios.get(`${selection}`);
       setPrice(data.currentPrice)
       setMainChartData(data.historicalPrice)
-      // setWeekChartData(data.weekPrice)
+      setWeekChartData(data.weekPrice)
       // setHourChartData(data.hourPrice)
     } catch (e) {
       console.log('ERROR IN NEW COIN DATA REQUEST', e)
