@@ -32,6 +32,7 @@ const WeekChart = ({weekChartData}) => {
   const chartOptions = {
 
   }
+
   return (
     <div>
       <TitleStyle>Last Week</TitleStyle>
