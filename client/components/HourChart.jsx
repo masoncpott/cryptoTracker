@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import { chartOptions } from './chartConfig.js';
 import { Chart, registerables } from 'chart.js';
