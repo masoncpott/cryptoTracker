@@ -1,5 +1,7 @@
 # cryptoTracker
-Matrix-themed cryptocurrency price tracking application
+Matrix-themed cryptocurrency price tracking application.
+This application is built using React.js, Styled-Components, Express.js, Chart.js (with react-chartjs-2), and a few other utilities.
+To see what it looks like when built, please see the file titled "cryptoTrackerScreenShot.JPG"
 
 # setup instructions
 
